@@ -1,0 +1,74 @@
+html,body
+{
+	height:100%;
+	width:100%;
+}
+body
+{
+	font-size: 4vw;
+	text-align: center;
+	background-color: orange;
+}
+#gameover
+{
+	display: inline-block;
+	position: absolute;
+	top:0%;
+	left:10%;
+	width:50%;
+	height:50%;
+	border:2px solid black;
+	background-color: #c6c6c6;
+	display: none;
+}
+#gamearea
+{
+	width:75%;
+	position: absolute;
+	left:12.5%;
+	height:90%;
+	background-color: blue;
+}
+#lifearea
+{
+	position: absolute;
+	left:0%;
+	height:10%;
+	width:25%;
+	background-color: yellow
+}
+#lifearea img
+{
+	width:20%;
+	height:auto;
+}
+#scorearea
+{
+		position: absolute;
+		right:0%;
+		height:10%;
+		width:25%;
+		background-color: yellow
+}
+#fruitarea
+{
+	position: absolute;
+	top:15%;
+	width:100%;
+	height:70%;
+	background-color: white;
+}
+#fruitarea img
+{
+	width:10%;
+	height:10%;
+}
+#startbutton
+{
+	position:absolute;
+	left:40%;
+	bottom:2%;
+	width:20%;
+	height:10%;
+	background-color: purple;
+}
