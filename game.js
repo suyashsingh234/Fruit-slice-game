@@ -65,6 +65,14 @@ function dropfruit()
 		clearInterval(godown);
 		updatescore();
 	});
+    
+    imgele.addEventListener('click',function(){
+		$(imgele).hide( "explode", {pieces: 4 }, 500 );
+		fruitarea.removeChild(imgele);
+		score++;
+		clearInterval(godown);
+		updatescore();
+	});
 
 var	godown=setInterval(function()
 	{
