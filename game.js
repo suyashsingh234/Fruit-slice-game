@@ -5,52 +5,62 @@
 //if fruit smash score+1
 //else life-1
 //life 0 end game
+
 var score;
 var lives;
 var interval;
-var ctr=0;
+
+var gamearea=document.getElementById('gamearea');
 var lifearea=document.getElementById('lifearea');
+var scorearea=document.getElementById('scorearea');
+var fruitarea=document.getElementById('fruitarea');
+var startbutton=document.getElementById('startbutton');
+var gameover=document.getElementById('gameover');
+
 function updatelives()
 {
 	while(lifearea.firstChild)
 		lifearea.removeChild(lifearea.firstChild);
+
 	for(let i=0;i<lives;i++)
 	{
 		var img=document.createElement('img');
 		img.src='heart.png';
-		document.getElementById('lifearea').appendChild(img);
+		lifearea.appendChild(img);
 	}
+
 	if(lives<=0)
 	{
-		while(document.getElementById('fruitarea').firstChild)
-		{
-			document.getElementById('fruitarea').removeChild(document.getElementById('fruitarea').firstChild);
-		}
-		document.getElementById('gameover').style.display='inline-block';
-		document.getElementById('gameover').innerHTML='Gameover!'+'<br>'+'Score:'+score;
+		while(fruitarea.firstChild)
+			fruitarea.removeChild(fruitarea.firstChild);
+		gameover.style.display='inline-block';
+		gameover.innerHTML='Gameover!'+'<br>'+'Score:'+score;
 	}
+
 }
+
 function updatescore()
 {
-	document.getElementById('scorearea').innerHTML="Score:"+score;
+	scorearea.innerHTML="Score:"+score;
 }
+
 function dropfruit()
 {
-	var imgele=document.createElement("img");
 	var img=['i1.png','i2.png','i3.png','i4.png'];
 	var imgidx=Math.floor(Math.random()*4);
+
+	var imgele=document.createElement("img");
 	imgele.src=img[imgidx];
-	imgele.id="id"+ctr;
-	ctr++;
 	imgele.style.position="absolute";
 	var left=Math.random()*91;
 	imgele.style.top='0%';
 	imgele.style.left=left+'%';
-	document.getElementById('fruitarea').appendChild(imgele);
+
+	fruitarea.appendChild(imgele);
 
 	imgele.addEventListener('mouseover',function(){
 		$(imgele).hide( "explode", {pieces: 4 }, 500 );
-		document.getElementById('fruitarea').removeChild(imgele);
+		fruitarea.removeChild(imgele);
 		score++;
 		clearInterval(godown);
 		updatescore();
@@ -58,9 +68,7 @@ function dropfruit()
 
 var	godown=setInterval(function()
 	{
-		// console.log(ctr);
-		//console.log(imgele.id);
-		if(imgele.parentNode==document.getElementById('fruitarea'))
+		if(imgele.parentNode==fruitarea)
 		{
 			imgele.style.top=(parseInt(imgele.style.top,10)+20)+'%';
 			if(parseInt(imgele.style.top,10)>=90)
@@ -75,34 +83,35 @@ var	godown=setInterval(function()
 				}
 				else
 				{
-					document.getElementById('fruitarea').removeChild(imgele);
+					fruitarea.removeChild(imgele);
 					clearInterval(godown);
 				}
 			}
 		}
 		else {
-			//console.log('c->'+imgele.id);
 			clearInterval(godown);
 		}
 	},1000)
 }
 
-document.getElementById('startbutton').addEventListener('click',function(){
-	document.getElementById('gameover').style.display='';
+	startbutton.addEventListener('click',function(){
+	gameover.style.display='';
 	score=0;
 	lives=3;
 	updatelives();
 	updatescore();
-	while(document.getElementById('fruitarea').firstChild)
-	{
-		document.getElementById('fruitarea').removeChild(document.getElementById('fruitarea').firstChild);
-	}
-	for(let i=0;i<9999;i++)
+
+	while(fruitarea.firstChild)
+		fruitarea.removeChild(fruitarea.firstChild);
+
+	for(let i=0;i<9999;i++)   //clear all instances of godown
 		clearInterval(i);
 	clearInterval(interval);
+
 	interval=setInterval(function(){
 		dropfruit();
 		if(lives<=0)
 			clearInterval(interval);
 	},500);
+
 });
